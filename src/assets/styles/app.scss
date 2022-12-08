@@ -1,0 +1,17 @@
+.vue-flow {
+  min-height: 100vh;
+
+  &__controls {
+    margin-bottom: 50px;
+  }
+}
+
+.flex-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.selectBox {
+  margin-left: 20px;
+}

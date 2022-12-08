@@ -1,2 +1,26 @@
 @import '@vue-flow/core/dist/style.css';
 @import '@vue-flow/core/dist/theme-default.css';
+
+.custom-border-node {
+  border: none;
+  width: 100px;
+  height: 100px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.custom-border-node:after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  width: 100%;
+  height: 100%;
+  border: 1px solid #000;
+  border-radius: 3px;
+  transform: rotate(45deg);
+  pointer-events: none;
+}
