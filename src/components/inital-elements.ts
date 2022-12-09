@@ -28,3 +28,31 @@ export const initialElements = [
 
 export const approverNodes = []
 export const conditionNodes = []
+export const approver = [
+  {
+    label: 'TEAM LEAD',
+    value: 1,
+  },
+  {
+    label: 'PM',
+    value: 2,
+  },
+  {
+    label: 'ACCOUNTANT',
+    value: 3,
+  },
+  {
+    label: 'BUL',
+    value: 4,
+  },
+]
+export const condition = [
+  {
+    label: 'AND',
+    value: 1,
+  },
+  {
+    label: 'OR',
+    value: 2,
+  },
+]

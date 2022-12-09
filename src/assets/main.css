@@ -1,6 +1,10 @@
 @import '@vue-flow/core/dist/style.css';
 @import '@vue-flow/core/dist/theme-default.css';
 
+body {
+  background-color: #ccc;
+}
+
 .custom-border-node {
   border: none;
   width: 100px;
@@ -23,4 +27,12 @@
   border-radius: 3px;
   transform: rotate(45deg);
   pointer-events: none;
+}
+
+.vue-flow__node-default {
+  background: transparent;
+}
+
+.vue-flow__node-default.selectable:hover {
+  box-shadow: none;
 }
