@@ -38,7 +38,6 @@ export const getNewCondition = (id: number, position: Record<string, number>) =>
     type: 'condition',
     label: `Condition ${id}`,
     position: { x: position.x, y: position.y + 100 },
-    data: { toolbarPosition: Position.Bottom },
     style: {
       color: 'white',
       width: '120px',

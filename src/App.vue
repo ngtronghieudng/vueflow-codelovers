@@ -5,14 +5,22 @@ import { Controls } from '@vue-flow/additional-components'
 import { initialElements } from './components/inital-elements';
 import ToolbarNode from '@/components/ToolbarNode.vue'
 import ConditionNode from '@/components/ConditionNode.vue'
+import PropertiesNode from '@/components/PropertiesNode.vue'
 
 const elements: any = ref(initialElements)
+const isDrawer = ref(false)
+const properties = ref()
 
-const { nodesDraggable, onPaneReady } = useVueFlow()
+const { nodesDraggable, onNodeDoubleClick } = useVueFlow()
 
-onPaneReady(({ fitView }) => {
-  fitView()
+onNodeDoubleClick((event: any) => {
+  isDrawer.value = true
+  properties.value = event.node
 })
+
+const updateLabel = (value: string) => {
+  properties.value.label = value
+}
 </script>
 
 <template>
@@ -32,17 +40,20 @@ onPaneReady(({ fitView }) => {
     </el-col>
   </el-row>
 
-  <VueFlow v-model="elements">
+  <vue-flow v-model="elements" fit-view-on-init>
     <template #node-toolbar="nodeProps">
-      <ToolbarNode v-bind="nodeProps" />
+      <toolbar-node v-bind="nodeProps" />
     </template>
 
     <template #node-condition="nodeProps">
-      <ConditionNode v-bind="nodeProps" />
+      <condition-node v-bind="nodeProps" />
     </template>
 
-    <Controls />
-  </VueFlow>
+    <controls />
+  </vue-flow>
+
+  <properties-node v-model="isDrawer" :label="properties?.label" @update-label="updateLabel" />
+
 </template>
 
 <style lang="scss" scoped>

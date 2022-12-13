@@ -80,7 +80,7 @@ const addNodesWhenAddCondition = () => {
 </script>
 
 <template>
-  <NodeToolbar
+  <node-toolbar
     style="display: flex; gap: 0.5rem; align-items: center"
     :is-visible="data.toolbarVisible"
     :position="data.toolbarPosition"
@@ -88,7 +88,7 @@ const addNodesWhenAddCondition = () => {
     <el-button type="primary" :icon="Plus" circle @click="addNode" />
     <el-button type="primary" :icon="Link" circle @click="addCondition" />
     <el-button type="danger" :icon="Minus" circle />
-  </NodeToolbar>
+  </node-toolbar>
 
   <div :style="{ padding: '10px 20px' }">
     {{ label }}
