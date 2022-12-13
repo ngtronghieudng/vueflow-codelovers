@@ -1,58 +1,61 @@
-// import { MarkerType, Position } from '@vue-flow/core'
+import { Position } from '@vue-flow/core'
 
 export const initialElements = [
-  // { id: '1', type: 'input', label: 'Node 1', position: { x: 250, y: 5 } },
-  // {
-  //   id: '2',
-  //   label: 'Node 2',
-  //   position: { x: 100, y: 100 },
-  //   sourcePosition: Position.Right,
-  // },
-  // {
-  //   id: '3',
-  //   label: 'Node 3',
-  //   position: { x: 400, y: 100 },
-  //   targetPosition: Position.Left,
-  // },
-  // { id: '4', type: 'output', label: 'Node 4', position: { x: 400, y: 200 } },
-  // {
-  //   id: 'e1-2',
-  //   source: '1',
-  //   target: '2',
-  //   animated: true,
-  //   markerEnd: MarkerType.Arrow,
-  // },
-  // { id: 'e2-3', source: '2', target: '3', animated: true },
-  // { id: 'e3-4', source: '3', target: '4', animated: true },
+  {
+    id: '1',
+    type: 'toolbar',
+    label: 'Node 1',
+    position: { x: 0, y: 0 },
+    data: { toolbarPosition: Position.Bottom },
+    style: {
+      border: '1px solid #10b981',
+      background: '#ef467e',
+      color: 'white',
+      borderRadius: '99px',
+    },
+  },
 ]
 
-export const approverNodes = []
-export const conditionNodes = []
-export const approver = [
-  {
-    label: 'TEAM LEAD',
-    value: 1,
-  },
-  {
-    label: 'PM',
-    value: 2,
-  },
-  {
-    label: 'ACCOUNTANT',
-    value: 3,
-  },
-  {
-    label: 'BUL',
-    value: 4,
-  },
-]
-export const condition = [
-  {
-    label: 'AND',
-    value: 1,
-  },
-  {
-    label: 'OR',
-    value: 2,
-  },
-]
+export const getNewNode = (id: number, position: Record<string, number>) => {
+  return {
+    id: `${id}`,
+    type: 'toolbar',
+    label: `Node ${id}`,
+    position: { x: position.x, y: position.y + 100 },
+    data: { toolbarPosition: Position.Bottom },
+    style: {
+      border: '1px solid #10b981',
+      background: '#ef467e',
+      color: 'white',
+      borderRadius: '99px',
+    },
+  }
+}
+
+export const getNewCondition = (id: number, position: Record<string, number>) => {
+  return {
+    id: `${id}`,
+    type: 'condition',
+    label: `Condition ${id}`,
+    position: { x: position.x, y: position.y + 100 },
+    data: { toolbarPosition: Position.Bottom },
+    style: {
+      color: 'white',
+      width: '120px',
+      height: '120px',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    class: 'custom-border-node',
+  }
+}
+
+export const getNewEdge = (id: number, parentId: number) => {
+  return {
+    id: `e${parentId}-${id}`,
+    source: `${parentId}`,
+    target: `${id}`,
+    type: 'smoothstep',
+  }
+}
