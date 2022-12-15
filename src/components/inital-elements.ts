@@ -1,15 +1,15 @@
-import { Position } from '@vue-flow/core'
+import { MarkerType, Position } from '@vue-flow/core'
 
 export const initialElements = [
   {
     id: '1',
     type: 'toolbar',
-    label: 'Node 1',
+    label: 'Submiter',
     position: { x: 0, y: 0 },
     data: { toolbarPosition: Position.Bottom },
     style: {
-      border: '1px solid #10b981',
-      background: '#ef467e',
+      border: '1px solid #fff',
+      background: '#740fad',
       color: 'white',
       borderRadius: '99px',
     },
@@ -21,11 +21,11 @@ export const getNewNode = (id: number, position: Record<string, number>) => {
     id: `${id}`,
     type: 'toolbar',
     label: `Node ${id}`,
-    position: { x: position.x, y: position.y + 100 },
+    position: { x: position.x + 150, y: position.y },
     data: { toolbarPosition: Position.Bottom },
     style: {
-      border: '1px solid #10b981',
-      background: '#ef467e',
+      border: '1px solid #fff',
+      background: '#740fad',
       color: 'white',
       borderRadius: '99px',
     },
@@ -37,7 +37,7 @@ export const getNewCondition = (id: number, position: Record<string, number>) =>
     id: `${id}`,
     type: 'condition',
     label: `Condition ${id}`,
-    position: { x: position.x, y: position.y + 100 },
+    position: { x: position.x + 150, y: position.y - 38.2 },
     style: {
       color: 'white',
       width: '120px',
@@ -56,5 +56,7 @@ export const getNewEdge = (id: number, parentId: number) => {
     source: `${parentId}`,
     target: `${id}`,
     type: 'smoothstep',
+    markerEnd: MarkerType.Arrow,
+    style: { stroke: '#10b981' },
   }
 }

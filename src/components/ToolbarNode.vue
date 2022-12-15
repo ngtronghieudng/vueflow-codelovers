@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { Position, useVueFlow } from '@vue-flow/core'
+import { MarkerType, Position, useVueFlow, Handle } from '@vue-flow/core'
 import { NodeToolbar } from '@vue-flow/node-toolbar'
 import {
   Plus,
   Link,
   Minus
 } from '@element-plus/icons-vue'
-import { getNewEdge, getNewNode, getNewCondition } from './inital-elements';
+import { getNewEdge, getNewNode, getNewCondition } from '@/components/inital-elements';
 
 interface Props {
   id: string
@@ -40,10 +40,10 @@ const addCondition = () => {
   addNodes([newNode])
   addEdges([newEdge])
 
-  addNodesWhenAddCondition()
+  addNodesWhenAddCondition(newNode)
 }
 
-const addNodesWhenAddCondition = () => {
+const addNodesWhenAddCondition = (newNode: any) => {
   const id = nodes.value.length
 
   for (let index = 1; index <= 2; index++) {
@@ -52,13 +52,13 @@ const addNodesWhenAddCondition = () => {
       type: 'toolbar',
       label: `Node ${id + index}`,
       position: { 
-        x: index === 1 ? props.position.x + 50 : -(props.position.x + 50),
-        y: props.position.y + 150 * 2
+        x: index === 1 ? newNode.position.x + 10 : newNode.position.x + 200,
+        y: index === 1 ? newNode.position.y + 200 : newNode.position.y + 38.2
       },
       data: { toolbarPosition: Position.Bottom },
       style: {
-        border: '1px solid #10b981',
-        background: '#ef467e',
+        border: '1px solid #fff',
+        background: '#740fad',
         color: 'white',
         borderRadius: '99px',
       },
@@ -69,8 +69,11 @@ const addNodesWhenAddCondition = () => {
       source: `${id}`,
       target: `${id + index}`,
       type: 'smoothstep',
-      label: index === 1 ? 'true' : 'false',
-      labelShowBg: false
+      label: index === 1 ? 'false' : 'true',
+      labelShowBg: true,
+      labelBgStyle: { fill: '#fcf6ff' },
+      markerEnd: MarkerType.Arrow,
+      style: { stroke: '#10b981' },
     }
 
     addNodes([tempNode])
@@ -93,4 +96,7 @@ const addNodesWhenAddCondition = () => {
   <div :style="{ padding: '10px 20px' }">
     {{ label }}
   </div>
+
+  <Handle type="target" :position="Position.Left" class="tw-opacity-0" />
+  <Handle type="source" :position="Position.Right" class="tw-opacity-0" />
 </template>
