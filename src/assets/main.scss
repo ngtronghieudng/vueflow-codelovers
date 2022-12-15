@@ -35,6 +35,10 @@
   box-shadow: none;
 }
 
+.el-menu--horizontal > .el-sub-menu .el-sub-menu__icon-arrow {
+  margin-top: 3px;
+}
+
 button,
 [type='button'],
 [type='reset'],
