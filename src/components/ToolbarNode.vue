@@ -1,12 +1,8 @@
 <script setup lang="ts">
 import { MarkerType, Position, useVueFlow, Handle } from '@vue-flow/core'
 import { NodeToolbar } from '@vue-flow/node-toolbar'
-import {
-  Plus,
-  Link,
-  Minus
-} from '@element-plus/icons-vue'
-import { getNewEdge, getNewNode, getNewCondition } from '@/components/inital-elements';
+import { Plus, Link, Minus } from '@element-plus/icons-vue'
+import { getNewEdge, getNewNode, getNewCondition } from '@/components/inital-elements'
 
 interface Props {
   id: string
@@ -23,7 +19,7 @@ const addNode = () => {
   const id = nodes.value.length + 1
   const parentId = +props.id
 
-  const newNode = getNewNode(id, props.position)
+  const newNode = getNewNode(id, parentId, props.position)
   const newEdge = getNewEdge(id, parentId)
 
   addNodes([newNode])
@@ -34,7 +30,7 @@ const addCondition = () => {
   const id = nodes.value.length + 1
   const parentId = +props.id
 
-  const newNode = getNewCondition(id, props.position)
+  const newNode = getNewCondition(id, parentId, props.position)
   const newEdge = getNewEdge(id, parentId)
 
   addNodes([newNode])
@@ -43,17 +39,17 @@ const addCondition = () => {
   addNodesWhenAddCondition(newNode)
 }
 
-const addNodesWhenAddCondition = (newNode: any) => {
+const addNodesWhenAddCondition = (parentNode: any) => {
   const id = nodes.value.length
 
   for (let index = 1; index <= 2; index++) {
-    const tempNode = {
+    const newNode = {
       id: `${id + index}`,
       type: 'toolbar',
       label: `Node ${id + index}`,
-      position: { 
-        x: index === 1 ? newNode.position.x + 10 : newNode.position.x + 200,
-        y: index === 1 ? newNode.position.y + 200 : newNode.position.y + 38.2
+      position: {
+        x: index === 1 ? parentNode.position.x + 10 : parentNode.position.x + 200,
+        y: index === 1 ? parentNode.position.y + 200 : parentNode.position.y + 38.2,
       },
       data: { toolbarPosition: Position.Bottom },
       style: {
@@ -62,9 +58,10 @@ const addNodesWhenAddCondition = (newNode: any) => {
         color: 'white',
         borderRadius: '99px',
       },
+      parentNode: '' + id,
     }
 
-    const tempEdge = {
+    const newEdge = {
       id: `e${id}-${id + index}`,
       source: `${id}`,
       target: `${id + index}`,
@@ -76,9 +73,26 @@ const addNodesWhenAddCondition = (newNode: any) => {
       style: { stroke: '#10b981' },
     }
 
-    addNodes([tempNode])
-    addEdges([tempEdge])
+    addNodes([newNode])
+    addEdges([newEdge])
   }
+}
+
+const removeNode = () => {
+  const arr = nodes.value || []
+  let temp = null
+  let result
+
+  // do {
+  //   result += arr.filter((element) => {
+  //     if (element.parentNode === (temp ?? props.id)) {
+  //       temp = element.id
+  //       return element
+  //     }
+  //   })
+  // } while (temp > 3)
+
+  console.log(result, '======')
 }
 </script>
 
@@ -90,7 +104,7 @@ const addNodesWhenAddCondition = (newNode: any) => {
   >
     <el-button type="primary" :icon="Plus" circle @click="addNode" />
     <el-button type="primary" :icon="Link" circle @click="addCondition" />
-    <el-button type="danger" :icon="Minus" circle />
+    <el-button type="danger" :icon="Minus" circle @click="removeNode" />
   </node-toolbar>
 
   <div :style="{ padding: '10px 20px' }">

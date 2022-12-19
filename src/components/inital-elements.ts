@@ -16,7 +16,7 @@ export const initialElements = [
   },
 ]
 
-export const getNewNode = (id: number, position: Record<string, number>) => {
+export const getNewNode = (id: number, parentId: number, position: Record<string, number>) => {
   return {
     id: `${id}`,
     type: 'toolbar',
@@ -29,10 +29,11 @@ export const getNewNode = (id: number, position: Record<string, number>) => {
       color: 'white',
       borderRadius: '99px',
     },
+    parentNode: '' + parentId,
   }
 }
 
-export const getNewCondition = (id: number, position: Record<string, number>) => {
+export const getNewCondition = (id: number, parentId: number, position: Record<string, number>) => {
   return {
     id: `${id}`,
     type: 'condition',
@@ -47,6 +48,7 @@ export const getNewCondition = (id: number, position: Record<string, number>) =>
       justifyContent: 'center',
     },
     class: 'custom-border-node',
+    parentNode: '' + parentId,
   }
 }
 

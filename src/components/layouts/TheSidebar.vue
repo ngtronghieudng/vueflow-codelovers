@@ -1,32 +1,25 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import {
-  Document,
-  Menu as IconMenu,
-  Location,
-  Setting,
-} from '@element-plus/icons-vue'
-import { useRouter } from 'vue-router';
+import { Document, Menu as IconMenu, Location, Setting } from '@element-plus/icons-vue'
+import { useRouter } from 'vue-router'
 
 const isCollapse = ref(false)
 
 const navItems = [
   {
     label: 'Workflow',
-    to: '/workflow'
+    to: '/workflow',
   },
   {
     label: 'Form Builder',
-    to: '/form-builder'
+    to: '/form-builder',
   },
 ]
 
 const router = useRouter()
 
-const handleOpen = () => {
-}
-const handleClose = () => {
-}
+const handleOpen = () => {}
+const handleClose = () => {}
 
 const nav = (path: string) => {
   router.push(path)
@@ -43,7 +36,7 @@ const nav = (path: string) => {
   >
     <el-menu-item index="2">
       <el-icon><icon-menu /></el-icon>
-      <template #title>Home</template>
+      <template #title><router-link to="/">Home</router-link></template>
     </el-menu-item>
 
     <el-sub-menu index="1">
