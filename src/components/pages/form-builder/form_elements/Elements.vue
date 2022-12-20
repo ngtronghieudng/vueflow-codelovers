@@ -5,31 +5,35 @@
     class="dragArea"
     :group= "{ name:'formbuilder', pull:'clone', put:false }"
     :sort="false">
-      <el-col :span="12" :class="{ 'is-disabled': checkStopDragCondition(field) }" v-for="(field, index) in fields" :key="index">
+      <template #item="{element}">
+        <el-col :span="12" :class="{ 'is-disabled': checkStopDragCondition(field) }" v-for="(field, index) in fields" :key="index">
         <el-button class="button__sidebar">
           {{ field.text }}
         </el-button>
       </el-col>
+      </template>
     </draggable>
   </el-row>
 </div>
 </template>
 
 <script>
-import FormBuilder from '@/components/pages/form-builder/form_elements/formbuilder.ts';
+import FormBuilder from '@/components/pages/form-builder/form_elements/formbuilder.vue';
 import draggable from 'vuedraggable';
 import _ from 'lodash'
 
 export default {
   name: 'Elements',
-  store: ['forms'],
+  // store: ['forms'],
   components: {
-    draggable
+    draggable,
   },
   data() {
+    console.log(FormBuilder, '=========FormBuilder')
     return {
-      fields: FormBuilder.$data.fields,
-      dropElementOptions: FormBuilder.$data.dropElementOptions
+      forms: [],
+      fields: FormBuilder.fields,
+      dropElementOptions: FormBuilder.dropElementOptions
     };
   },
   methods: {

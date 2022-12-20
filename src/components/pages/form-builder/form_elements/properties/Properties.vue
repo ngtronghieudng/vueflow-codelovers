@@ -221,9 +221,10 @@ export default {
     OptionsAdvancedProps,
     SelectListAdvancedProps
   },
-  store: ['activeField'], // Get the form data from Home
+  // store: ['activeField'], // Get the form data from Home
   data() {
     return {
+      activeField: [],
       labelPosition: 'top',
       fieldProperties: {},
       rules: {},

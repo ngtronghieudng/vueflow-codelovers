@@ -1,19 +1,22 @@
 <script lang="ts">
-import FormBuilder from '@/components/pages/form-builder/form_elements/formbuilder.ts';
+import FormBuilder from '@/components/pages/form-builder/form_elements/formbuilder.vue';
 
 export default {
   name: 'Home',
-  store: ['forms', 'activeField', 'activeTabForFields'],
+  // store: ['forms', 'activeField', 'activeTabForFields'],
   data() {
     return {
-      sortElementOptions: FormBuilder.$data.sortElementOptions
+      sortElementOptions: FormBuilder.sortElementOptions,
+      forms: [],
+      activeField: [],
+      activeTabForFields: 'elements'
     };
   },
   mounted() {
     console.log("form ->", this.forms)
     console.log("activeField ->", this.activeField)
   },
-  components: FormBuilder.$options.components,
+  components: FormBuilder.components,
   methods: {
     deleteElement(index, form) {
       FormBuilder.deleteElement(index, form)
@@ -75,7 +78,8 @@ export default {
               <div class="meta">
                 <el-row>
                   <draggable :list="eachFormObj.fields" class="dragArea" :group="{ name:'formbuilder', pull:false, put:true }" :sort="true" ghost-class="sortable__ghost">
-                    <!-- The form elements starts (on the right) -->
+                    <template #item="{element}">
+                      <!-- The form elements starts (on the right) -->
                     <!-- <div> -->
                     <el-col v-for="(field, index) in eachFormObj.fields" :key="index" v-bind="field" :span="field.span" class="form__group" :class="{ 'is--active': field === activeField }">
                       <span class="form__selectedlabel">{{ field.fieldType }}</span>
@@ -97,6 +101,7 @@ export default {
                       </div>
                     </el-col>
                     <!-- </div> -->
+                    </template>
                   </draggable>
                 </el-row>
               </div>
@@ -114,7 +119,7 @@ export default {
         </el-tab-pane>
 
         <el-tab-pane name="properties" label="Properties">
-          <properties v-show="Object.keys($store.activeField).length > 0"></properties>
+          <properties v-show="Object.keys(activeField).length > 0"></properties>
         </el-tab-pane>
       </el-tabs>
 

@@ -15,3 +15,5 @@ app.use(router as any)
 app.use(ElementPlus)
 
 app.mount('#app')
+
+export default app

@@ -1,4 +1,4 @@
-import Vue from 'vue'
+<script lang="ts">
 import _ from 'lodash'
 import draggable from 'vuedraggable'
 
@@ -24,7 +24,8 @@ import Properties from '@/components/pages/form-builder/form_elements/properties
 
 import vm from '@/main'
 
-const FormBuilder = new Vue({
+export default {
+  name: 'FormBuilder',
   components: {
     Elements,
     Properties,
@@ -370,6 +371,6 @@ const FormBuilder = new Vue({
       // vm.$store.activeTabForFields = 'properties'
     },
   },
-})
+}
 
-export default FormBuilder
+</script>

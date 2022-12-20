@@ -1,11 +1,18 @@
 <script lang="ts">
-import FormBuilder from '@/components/pages/form-builder/form_elements/formbuilder.ts'
+import FormBuilder from '@/components/pages/form-builder/form_elements/formbuilder.vue'
 import _ from 'lodash';
 
 export default {
   name: 'Publish',
-  store: ['forms', 'themingVars'],
-  components: FormBuilder.$options.components,
+  data() {
+    return {
+      forms: [],
+      activeField: [],
+      activeTabForFields: 'elements'
+    }
+  },
+  // store: ['forms', 'themingVars'],
+  components: FormBuilder.components,
   computed: {
     cssProps() {
       // Return an object that will generate css properties key
@@ -41,9 +48,10 @@ export default {
     <el-container>
       <el-main :style="cssProps">
         <el-form>
-          <template v-for="(eachFormObj, eachFormIndex) in forms" :key="`divider-${eachFormIndex}`">
+          <template v-for="(eachFormObj, eachFormIndex) in forms" :key="eachFormIndex">
             <el-divider>{{ eachFormObj.title }}</el-divider>
-            <el-row :key="`row-${eachFormIndex}`">
+
+            <el-row>
               <div class="wrapper--forms">
                 <el-col v-for="(field, index) in eachFormObj.fields" :key="index" :span="field.span" v-bind="field" class="form__group">
                   <!-- <label class="form__label" v-model="form.label" v-show="form.hasOwnProperty('label')">{{ form.label }}</label> -->
