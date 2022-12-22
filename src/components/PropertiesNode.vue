@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed } from 'vue'
+import JsonEditor from '@/components/pages/json-editor/JsonEditor.vue'
 
 interface Props {
   label: string
@@ -19,17 +20,12 @@ const label = computed({
   set(value) {
     console.log(value, '=============value')
     emit('update-label', value)
-  }
+  },
 })
 </script>
 
 <template>
-  <el-drawer
-    v-model="$attrs.modelValue"
-    title="Properties"
-    direction="rtl"
-    size="20%"
-  >
-    <el-input v-model="label" />
+  <el-drawer v-model="$attrs.modelValue" title="Properties" direction="rtl" size="100%">
+    <json-editor />
   </el-drawer>
 </template>
