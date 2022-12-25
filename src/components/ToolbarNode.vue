@@ -13,7 +13,7 @@ interface Props {
 
 const props = defineProps<Props>()
 
-const { nodes, addNodes, addEdges } = useVueFlow()
+const { nodes, addNodes, addEdges, getNodes, removeNodes, getEdges, removeEdges } = useVueFlow()
 
 const addNode = () => {
   const id = nodes.value.length + 1
@@ -78,21 +78,33 @@ const addNodesWhenAddCondition = (parentNode: any) => {
   }
 }
 
-const removeNode = () => {
-  const arr = nodes.value || []
-  let temp = null
-  let result
+const removeNode = (id: any) => {
+  const nodes = getNodes.value;
+  const edges = getEdges.value;
+  let deleteNodes = [];
+  let deleteEdges = [];
 
-  // do {
-  //   result += arr.filter((element) => {
-  //     if (element.parentNode === (temp ?? props.id)) {
-  //       temp = element.id
-  //       return element
-  //     }
-  //   })
-  // } while (temp > 3)
+  const addNodesToList = (id: any) => {
+    for(var node of nodes) {
+      if(node.parentNode === id) {
+        deleteNodes.push(node.id);
+        addNodesToList(node.id);
+      }
+    }
+  }
 
-  console.log(result, '======')
+  addNodesToList(id);
+
+  for(var edge of edges) {
+    for(var node of deleteNodes) {
+      if(edge.source === node.id || edge.target === node.id) {
+        deleteEdges.push(edge);
+      }
+    }
+  }
+
+  removeEdges(deleteEdges);
+  removeNodes(deleteNodes, false);
 }
 </script>
 
@@ -104,7 +116,7 @@ const removeNode = () => {
   >
     <el-button type="primary" :icon="Plus" circle @click="addNode" />
     <el-button type="primary" :icon="Link" circle @click="addCondition" />
-    <el-button type="danger" :icon="Minus" circle @click="removeNode" />
+    <el-button type="danger" :icon="Minus" circle @click="removeNode(id)" />
   </node-toolbar>
 
   <div :style="{ padding: '10px 20px' }">
